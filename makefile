@@ -24,7 +24,7 @@ all:	$(TARGET)
 
 $(TARGET): $(SRC:.f=.o)
 	$(FF) -o $(TARGET) $(SRC:.f=.o) $(LFLAGS) $(LDFLAGS) $(CFLAGS)
-
+	mv nanoporo ~/bin/NPC_BIND/
 .f.o:
 	${FF} -c ${FFLAGS}  $(SRC) $(LFLAGS) $(LDFLAGS) $(CFLAGS)
 
