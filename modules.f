@@ -114,6 +114,7 @@
       real*8 monomerpKa
       real*8 nmonkap(100)
       character (len = 100)nmonkapbuffer
+      integer, allocatable :: center(:)
       endmodule mparameters_monomer
 
       module mkinsol

@@ -428,6 +428,7 @@ C----------------------------------------------------------
          write(510,*)'system length / nm = ', dimZ*delta
          write(510,*)'sites with grafted chains = ', CdimZ
          write(510,*)'Kbind0 = ', Kbind0
+         write(510,*)'mukap = ', log(expmukap)
 
 !!!!!!!!!!!!!!!!!!!!!! CHECK TOTAL NUMBER OF CHAINS !!!!!!!!!!!!!!!!!
         temp = 0.0

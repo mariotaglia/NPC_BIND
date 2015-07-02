@@ -5,6 +5,7 @@
       use mvariables
       use mprotein
       use mKaps
+      use mkai
 
       implicit none
       include 'mpif.h' ! MPI libraries

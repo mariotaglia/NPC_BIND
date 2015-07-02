@@ -12,6 +12,7 @@
       use mparameters_chain
       use mparameters_monomer
       use mrands
+      use mprotein
 
       implicit none
 
@@ -27,19 +28,22 @@
       real*8 R,theta,z
       real*8 thetamin, thetamax, rmax, rmin, zmax, zmin, r0
       real*8 cutoff
+      real*8 cutoffmin
 
       real*8 rn
       integer i, ii
       integer iR, iZ, itheta
       real*8 radio ! total radius
+      real*8 D, V ! total radius
       real*8 x1,x2,y1, y2, z1, z2, vect
       integer Rj, Zj, j
       character*40 filename
       real*8 sumXuii
       real*8 rounding
 
+      radio = delta*float(PdimR)
+      D = 2.0*radio
       if(readkai.ne.1) then
-         radio = delta*dimR
          if(rank.eq.0)print*,'Kai calculation, readkai =', readkai
          write(filename,'(A5, I4.4, A4)')
      & 'kais-', dimR, '.kai'
@@ -49,6 +53,8 @@
          seed = readseed
 
          cutoff = float(Xulimit)*delta
+         cutoffmin = radio+delta
+
          rounding = 1e-6 ! used to prevent errors due to rounding
 
          do ii = 1, dimR       ! loop over segment positions
@@ -104,9 +110,15 @@
                if(Rj.gt.dimR)Rj=dimR+1 ! goes to bulk
                suma(ii, Rj, Zj) = suma(ii, Rj, Zj) + R
 
-               if(vect.gt.(cutoff))cycle ! outside cut-off sphere
-               if(vect.lt.(float(PdimR)*delta))cycle
-               Xu(ii, Rj, Zj) = Xu(ii, Rj, Zj) + ((lseg/vect)**6)*R ! incluye el jacobiano R(segmento)
+               if(vect.gt.cutoff)cycle ! outside cut-off sphere
+               if(vect.lt.cutoffmin)cycle
+
+               V = vect
+
+               Xu(ii, Rj, Zj) = Xu(ii, Rj, Zj) 
+     &+(D**2/(V**2-D**2)+D**2/(V**2)*2.0*log((V**2-D**2)/(V**2)))/12.0*R    ! incluye el jacobiano R(segmento)
+
+!               Xu(ii, Rj, Zj) = Xu(ii, Rj, Zj) + ((lseg/vect)**6)*R ! incluye el jacobiano R(segmento)
 
             enddo ! iR
             enddo ! iZ

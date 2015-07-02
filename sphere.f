@@ -179,7 +179,14 @@
 
 
       do im = 1, N_monomer
+      if(center(im).ne.0) then
       Kaps(:,:,:,im) = KapsV(:,:,:)*nmonkap(im)/vsphere
+      else
+      Kaps(:,:,:,im) = 0.0
+      do ii = 1, dimR
+      Kaps(ii,ii,0,im) = nmonkap(im)
+      enddo
+      endif
       enddo
 
       end

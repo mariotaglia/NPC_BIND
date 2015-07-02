@@ -21,6 +21,7 @@
       ALLOCATE (pKbind(N_monomer), Kbind(N_monomer), Kbind0(N_monomer)
      & , rbind(N_monomer))
       ALLOCATE (henergy(N_poorsol))
+      ALLOCATE (center(N_monomer))
 
       ios = 0
       read(nmonkapbuffer, *, iostat=ios) (nmonkap(j),j=1,N_monomer)
@@ -44,6 +45,8 @@
       rbind(1) = 0
       pKbind(1) = -1.0 
 
+      center(1) = 0
+
 ! Segment type 2: neutral, hydrophilic, bind
 
       zpol(2) = 0
@@ -53,6 +56,7 @@
       rbind(2) = 1
       pKbind(2) = pKbindread
 
+      center(2) = 0
 
 ! type 3: positive, hydrophilic, not bind
 
@@ -63,6 +67,7 @@
       rbind(3) = 0
       pKbind(3) = -1.0
 
+      center(3) = 0
 ! type 4: center, neutral, hydrophobic, not bind
 
       zpol(4) = 1
@@ -72,7 +77,7 @@
       rbind(4) = 0
       pKbind(4) = -1.0
 
-
+      center(4) = 1
 
 
 
