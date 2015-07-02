@@ -12,7 +12,7 @@
       use mparameters_chain
       use mparameters_monomer
       use mrands
-      use mprotein
+      use mkaps
 
       implicit none
 
@@ -41,7 +41,7 @@
       real*8 sumXuii
       real*8 rounding
 
-      radio = delta*float(PdimR)
+      radio = delta*float(Kapd)
       D = 2.0*radio
       if(readkai.ne.1) then
          if(rank.eq.0)print*,'Kai calculation, readkai =', readkai

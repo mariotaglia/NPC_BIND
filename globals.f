@@ -343,8 +343,8 @@
      
       ALLOCATE (Xu(dimR, dimR+1, -Xulimit:Xulimit))
       ALLOCATE (nXu(dimR*dimZ))
-      ALLOCATE (Xulist_cell(dimR*dimZ, 10))
-      ALLOCATE (Xulist_value(dimR*dimZ, 10))
+      ALLOCATE (Xulist_cell(dimR*dimZ, 100))
+      ALLOCATE (Xulist_value(dimR*dimZ, 100))
 
 ! Kaps
 
