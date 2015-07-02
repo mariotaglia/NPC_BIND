@@ -6,7 +6,7 @@ SRC = modules.f nanoporo.f cadenas.f encode.f fkfun.f  kinsol.f  monomers.defini
 
 # some definitions
 SHELL = /bin/bash
-FFLAGS= -O3 #-fbounds-check ${F90FLAGS}
+FFLAGS= -O3 # -fbounds-check ${F90FLAGS}
 
 LDFLAGS = -L/shared/software/sundials-2.5.0-openmpi/lib -lsundials_fkinsol -lsundials_kinsol -lsundials_fnvecserial -lsundials_nvecserial -lm -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. -lgfortran -lm -lgcc_s -lquadmath
 

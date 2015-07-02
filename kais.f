@@ -53,7 +53,7 @@
          seed = readseed
 
          cutoff = float(Xulimit)*delta
-         cutoffmin = radio+delta
+         cutoffmin = 2.0*radio+delta
 
          rounding = 1e-6 ! used to prevent errors due to rounding
 
@@ -116,7 +116,10 @@
                V = vect
 
                Xu(ii, Rj, Zj) = Xu(ii, Rj, Zj) 
-     &+(D**2/(V**2-D**2)+D**2/(V**2)*2.0*log((V**2-D**2)/(V**2)))/12.0*R    ! incluye el jacobiano R(segmento)
+     &        + R/12.0*((D*D)/((2*D+V)*V)+
+     &        (D*D)/((D+V)*(D+V))+2.0*log((2*D+V)*V/((D+V)*(D+V))))
+
+!               print*, ii, Rj, Zj, Xu(ii,Rj,Zj)
 
 !               Xu(ii, Rj, Zj) = Xu(ii, Rj, Zj) + ((lseg/vect)**6)*R ! incluye el jacobiano R(segmento)
 
@@ -212,14 +215,19 @@
       iZ = indexa(iC,2)
 
       do iiR = 1, dimR+1 ! loop over R-neighbors
-      do iiZ = -1,1 ! loop over Z-neighbors
+      do iiZ = -Xulimit,Xulimit ! loop over Z-neighbors
 
       if(Xu(iR,iiR,iiZ).ne.0d0) then ! Xu 
 
       iiiZ = iiZ+iZ
 
-      if(iiiZ.gt.dimZ)iiiZ = iiiZ-dimZ
-      if(iiiZ.lt.1)iiiZ = iiiZ+dimZ
+      do while (iiiZ.gt.dimZ)
+      iiiZ = iiiZ-dimZ
+      enddo
+      
+      do while (iiiZ.lt.1)
+      iiiZ = iiiZ+dimZ
+      enddo
 
       if (iiR.eq.dimR+1) then ! bulk
          nXu(iC) = nXu(iC) + 1

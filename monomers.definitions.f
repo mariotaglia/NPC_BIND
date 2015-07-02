@@ -11,7 +11,7 @@
       integer im
       integer ios, j
 
-      N_poorsol = 1 ! number of different kais
+      N_poorsol = 2 ! number of different kais
       N_monomer = 4
 
       ALLOCATE (st_matrix(N_poorsol, N_poorsol)) ! interaction between monomer types in fraction of st, scaled by st-scale during running....
@@ -33,13 +33,16 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
       st_matrix(1,1)=1.0
+      st_matrix(2,2)=0.0
+      st_matrix(1,2)=0.0
+      st_matrix(2,1)=0.0
 
       henergy(1) =  st_matrix(1,1)
 
 ! Segment type 1: neutral, hydrophilic, not bind
 
       zpol(1) = 0
-      hydroph(1) = 0
+      hydroph(1) = 2
       pKa(1) = -1.0
 
       rbind(1) = 0
@@ -50,7 +53,7 @@
 ! Segment type 2: neutral, hydrophilic, bind
 
       zpol(2) = 0
-      hydroph(2) = 0
+      hydroph(2) = 2
       pKa(2) = -1.0
 
       rbind(2) = 1
@@ -61,7 +64,7 @@
 ! type 3: positive, hydrophilic, not bind
 
       zpol(3) = 1
-      hydroph(3) = 0
+      hydroph(3) = 2
       pKa(3) = 14
       
       rbind(3) = 0

@@ -112,7 +112,7 @@ C-----------------------------------------------------
             enddo
 
             enddo
-         
+
 ! Condiciones de borde psi 
  
 ! This implictly considers SIGMAQ = 0
@@ -202,6 +202,8 @@ C-----------------------------------------------------
 
                xpot(im,iC) = xpot(im,iC)+henergy(hydroph(im))
      & *proteinhC(iC)*hst
+
+               
 
                do jj = 1, nXu(iC) ! loop over kai neighbors
                do ii = 1, N_poorsol ! loop over different poor sv types
