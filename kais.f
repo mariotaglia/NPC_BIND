@@ -41,7 +41,7 @@
       real*8 sumXuii
       real*8 rounding
 
-      radio = delta*float(Kapd)
+      radio = delta*float(Kapd)/2.0
       D = 2.0*radio
       if(readkai.ne.1) then
          if(rank.eq.0)print*,'Kai calculation, readkai =', readkai
@@ -168,7 +168,7 @@
         write(filename,'(A11, I4.4, A4)')'../../kais-', dimR, '.kai'
          open(unit=111, file=filename)
          if(rank.eq.0)print*,'Read Kais'
-        do j = 1, dimR*(dimR+1)*3
+        do j = 1, dimR*(dimR+1)*(2*Xulimit+1)
             read(111,*)ii,Rj,Zj,Xu(ii,Rj,Zj)
          enddo
       endif
@@ -214,7 +214,8 @@
       iR = indexa(iC,1) ! position of cell in the system
       iZ = indexa(iC,2)
 
-      do iiR = 1, dimR+1 ! loop over R-neighbors
+!      do iiR = 1, dimR+1 ! loop over R-neighbors
+      do iiR = 1, dimR ! loop over R-neighbors
       do iiZ = -Xulimit,Xulimit ! loop over Z-neighbors
 
       if(Xu(iR,iiR,iiZ).ne.0d0) then ! Xu 

@@ -62,7 +62,7 @@ c     to it.  The argument list must also be as illustrated below:
       enddo
 
       do i = 2*n+1, neq
-         pp(i) = 1.0 / (1.0+(1.0-udata(i))*exp(1.0-udata(i)))
+         pp(i) = -1.0 / (1.0+exp(-udata(i)))
       enddo
 
 
@@ -114,12 +114,12 @@ c     to it.  The argument list must also be as illustrated below:
 
      
 
-      msbpre  = 100 ! maximum number of iterations without prec. setup (?)
+      msbpre  = 1000 ! maximum number of iterations without prec. setup (?)
       fnormtol = 1.0d-8 ! Function-norm stopping tolerance
       scsteptol = 1.0d-8 ! Function-norm stopping tolerance
 
-      maxl = 1000 ! maximum Krylov subspace dimesion (?!?!?!) ! Esto se usa para el preconditioner
-      maxlrst = 20 ! maximum number of restarts
+      maxl = 5000 ! maximum Krylov subspace dimesion (?!?!?!) ! Esto se usa para el preconditioner
+      maxlrst = 200 ! maximum number of restarts
 
       max_niter = 2000
 
@@ -174,6 +174,8 @@ c       call fkinspbcg(maxl, ier) !  Scale Preconditioned BCG
       do i = 1, neq ! scaling vector
       scale(i) = 1.0
       enddo
+
+    
 
       do i = 1, neq ! Initial guess
       x1(i) = xg1(i)
