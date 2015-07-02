@@ -204,6 +204,11 @@
            read(buffer, *, iostat=ios) readkai
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
+        case ('Xulimit')
+           read(buffer, *, iostat=ios) Xulimit
+         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+
+
         case ('readkap')
            read(buffer, *, iostat=ios) readkap
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
@@ -335,7 +340,7 @@
 
 ! kai
      
-      ALLOCATE (Xu(dimR, dimR+1, -1:1))
+      ALLOCATE (Xu(dimR, dimR+1, -Xulimit:Xulimit))
       ALLOCATE (nXu(dimR*dimZ))
       ALLOCATE (Xulist_cell(dimR*dimZ, 10))
       ALLOCATE (Xulist_value(dimR*dimZ, 10))

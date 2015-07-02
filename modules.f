@@ -136,6 +136,7 @@
       endmodule mgraft
 
       module mkai
+      integer Xulimit
       real*8, allocatable :: Xu(:,:,:)
       integer, allocatable :: nXu(:), Xulist_cell(:,:)
       real*8, allocatable :: Xulist_value(:,:)

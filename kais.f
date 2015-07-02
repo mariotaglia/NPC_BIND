@@ -18,7 +18,7 @@
       include 'mpif.h'
       include 'MPI.h'
 
-      real*8  suma(dimR, dimR+1, -1:1)  ! Xu(a,b, c)
+      real*8  suma(dimR, dimR+1, -Xulimit:Xulimit)  ! Xu(a,b, c)
                                                      ! interaction of a
                                                      ! segment at R = a
                                                      ! and z = 0, with a
@@ -48,7 +48,7 @@
          Xu = 0.0               ! vector Xu
          seed = readseed
 
-         cutoff = 1.5*delta
+         cutoff = float(Xulimit)*delta
          rounding = 1e-6 ! used to prevent errors due to rounding
 
          do ii = 1, dimR       ! loop over segment positions
@@ -96,7 +96,7 @@
                                 ! z is the distance to the segment,
                                 ! while R
                                 ! is the position in the lattice
-               if(Zj.eq.2) then
+               if(Zj.gt.Xulimit) then
                 print*, z, z/delta,i,ii
                 stop
                endif
@@ -105,7 +105,7 @@
                suma(ii, Rj, Zj) = suma(ii, Rj, Zj) + R
 
                if(vect.gt.(cutoff))cycle ! outside cut-off sphere
-               if(vect.lt.lseg)cycle
+               if(vect.lt.(float(PdimR)*delta))cycle
                Xu(ii, Rj, Zj) = Xu(ii, Rj, Zj) + ((lseg/vect)**6)*R ! incluye el jacobiano R(segmento)
 
             enddo ! iR
@@ -113,7 +113,7 @@
             enddo ! itheta
 
             do Rj = 1, dimR+1
-            do Zj = -1,1
+            do Zj = -Xulimit,Xulimit
               Xu(ii, Rj, Zj) = Xu(ii, Rj,Zj)/(MCsteps**3)*(zmax-zmin)*
      &                 (thetamax-thetamin)*(rmax-rmin)
 
@@ -125,7 +125,7 @@
             if(ii.eq.1) then
             sumXu = 0.0
             do Rj = 1,dimR+1
-            do Zj = -1,1
+            do Zj = -Xulimit,Xulimit
             sumXu = sumXu+Xu(1,Rj,Zj) ! normalization for Xu
             write(111,*)ii,Rj,Zj,Xu(ii,Rj,Zj)
             enddo 
@@ -133,13 +133,13 @@
             else
             sumXuii = 0.0
             do Rj = 1,dimR+1
-            do Zj = -1,1
+            do Zj = -Xulimit,Xulimit
             sumXuii = sumXuii+Xu(ii,Rj,Zj) 
             enddo 
             enddo
 !            print*, ii, sumXu,sumXuii
             do Rj = 1,dimR+1
-            do Zj = -1,1
+            do Zj = -Xulimit,Xulimit
             Xu(ii,Rj,Zj) = Xu(ii,Rj,Zj)*sumXu/sumXuii
             write(111,*)ii,Rj,Zj,Xu(ii,Rj,Zj)
             enddo
@@ -164,7 +164,7 @@
 
       sumXu = 0.0
       do Rj = 1,dimR+1
-      do Zj = -1,1
+      do Zj = -Xulimit,Xulimit
       sumXu = sumXu+Xu(1,Rj,Zj) ! all should be the same, except the last ones.
       enddo 
       enddo       
