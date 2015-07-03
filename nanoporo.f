@@ -332,6 +332,7 @@ c
        enddo 
 
        expmukap = xkapbulk/dexp(prokap)
+       if(rank.eq.0)print*,'mukap ', log(expmukap)
 
 ! chemical potentials
 
