@@ -71,7 +71,7 @@ C----------------------------------------------------------
       avpol_temp(:) = 0.0
       do im = 1, N_monomer
       if(hydroph(im).eq.j) then 
-         do ii = 1, N_chains
+         do ii = 1, N_chains+2
          avpol_temp(:) = avpol_temp(:)+avpol(im, ii, :)
          enddo
       endif
@@ -83,7 +83,7 @@ C----------------------------------------------------------
       avpol_temp(:) = 0.0
       do im = 1, N_monomer
       if(hydroph(im).eq.0) then
-         do ii = 1, N_chains
+         do ii = 1, N_chains+2
          avpol_temp(:) = avpol_temp(:)+avpol(im, ii, :)
          enddo
       endif 
