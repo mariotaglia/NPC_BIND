@@ -177,15 +177,19 @@
 !! Right now the volume assignement is done by distributing all types of different monomers 
 !! proportional to the volume of the sphere 
 
+!      do im = 1, N_monomer
+!      Kaps(:,:,:,im) = KapsV(:,:,:)*nmonkap(im)/vsphere
+!      enddo
+
 
       do im = 1, N_monomer
-      if(center(im).ne.0) then
-      Kaps(:,:,:,im) = KapsV(:,:,:)*nmonkap(im)/vsphere
+      if(center(im).eq.0) then
+       Kaps(:,:,:,im) = KapsV(:,:,:)*nmonkap(im)/vsphere
       else
-      Kaps(:,:,:,im) = 0.0
-      do ii = 1, dimR
-      Kaps(ii,ii,0,im) = nmonkap(im)
-      enddo
+       Kaps(:,:,:,im) = 0.0
+       do ii = 1, dimR
+       Kaps(ii,ii,0,im) = nmonkap(im)
+       enddo
       endif
       enddo
 
