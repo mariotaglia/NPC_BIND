@@ -115,9 +115,12 @@
 
                V = vect
 
-               Xu(ii, Rj, Zj) = Xu(ii, Rj, Zj) 
-     &        + R/12.0*((D*D)/((2*D+V)*V)+
-     &        (D*D)/((D+V)*(D+V))+2.0*log((2*D+V)*V/((D+V)*(D+V))))
+!               Xu(ii, Rj, Zj) = Xu(ii, Rj, Zj) 
+!     &        + R/12.0*((D*D)/((2*D+V)*V)+
+!     &        (D*D)/((D+V)*(D+V))+2.0*log((2*D+V)*V/((D+V)*(D+V))))
+
+               Xu(ii, Rj, Zj) = Xu(ii, Rj, Zj)
+     &   + R/12.0*(D**2/(V**2-D**2)+D**2/V**2+2.0*log((V**2-D**2)/V**2))
 
 !               print*, ii, Rj, Zj, Xu(ii,Rj,Zj)
 
